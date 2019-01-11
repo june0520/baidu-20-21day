@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <title>IFE ECMAScript</title>
+    <style>
+        select {
+            display: none;
+        }
+
+
+        .pic {
+            width: 480px; 
+            height: 480px;
+            overflow:hidden;
+            position: relative;
+            margin-top: 100px;
+
+        }
+        .in {
+            width: 480px;
+            height: 8160px;
+            position: absolute;
+            top: 0px;
+            left: 0;
+        }
+      
+
+    </style>
+</head>
+<body>            
+    <label>
+        <input id="school" name="status" type="radio">
+        School
+    </label>
+    <label>
+        <input id="company" name="status" type="radio">
+        Company
+    </label>
+
+    <select id="school-select">        
+        <option>北京邮电大学</option>
+        <option>黑龙江大学</option>
+        <option>华中科技大学</option>
+    </select>
+
+    <select id="company-select">        
+        <option>百度</option>
+        <option>爱奇艺</option>        
+    </select>
+    <div class="pic">
+       <div class="in">
+            <img src="erik_ce204002.jpg" alt="">
+        </div>
+    </div>
+    <button>笑一个</button>
+
+    <script>
+        //当用户选择了 School 的单选框时，显示 School 的下拉选项，隐藏 Company 的下拉选项
+        var school = document.querySelector('#school');
+        var com = document.querySelector("#company");
+
+        var sSel = document.querySelector('#school-select');
+        var cSel = document.querySelector('#company-select');
+        school.addEventListener('click',function(){
+            cSel.style.cssText = "display: none;";
+            sSel.style.cssText = "display: block;";
+
+        })
+//当用户选择了 School 的单选框时，显示 Company 的下拉选项，隐藏 School 的下拉选项
+        com.addEventListener('click',function(){
+            cSel.style.cssText = "display: block;"
+            sSel.style.cssText = "display: none;";
+        })
+    //-----------------------------------------------------------------------------为什么函数不执行也不报错呢
+
+
+//人物图像利用定时器完成的动画
+window.onload = function(){
+    var incon = document.querySelector('.in');
+    var btn = document.querySelector('button')
+    var top = 0;
+    function move(){
+        if(top>-8160){
+            incon.style.top = top + 'px';
+            top -= 480;
+            setTimeout(move,100)
+        }
+    }
+    btn.onclick = function(){
+        move()
+   
+    }
+}
+  
+    </script>
+</body>
+</html>

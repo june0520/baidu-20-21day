@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+
+
+    
+<script>
+x = 0
+flag = 0
+function count( )
+{　x = x+ 1
+　 document.display.box.value= x
+　 timeoutID=setTimeout("count()", 1000)
+　 flag = 1
+}
+
+function restart( )
+{　if (flag==0)
+　　　{　count( )　}
+}
+</script> 
+
+</head>
+
+<body> <p> </br>
+<form name=display>
+<input type="text" name="box"value="0" size=4 >
+<input type=button value="停止计时"
+　　onClick="clearTimeout(timeoutID);flag=0" >
+<input type=button value="继续计时" onClick="restart() " >
+</form> <p>
+
+<script>
+//1.　程式开启时 flag=0。
+
+//2.　当 counter( ) 执行时会顺便将 flag 变为 1。
+
+//3.　在 [继续计时] 这按钮的反应中, 会先检查 flag 是 0 或是 1, 若是 0 就会产生作用, 若是 1 就没有反应。
+
+//4.　使用这 flag 的方式, count( ) 这 function 开启后, [继续计时] 这按钮就没有作用。
+
+//这处的 flag 是一个变数, 可任意取名, 我们用 flag来称呼这变数的原因, 是因为这变数好处一支旗, 将旗竖起 (flag is on), 就会产生一个作用, 将旗放下 (flag is off), 就产生另一个作用。
+count( )
+</script>
+
+<form>
+<input type=button value="Show flag"
+onClick="alert('The flag now is '+ flag)" >
+</form>
+window.setTimeout(hello(userName),3000);
+
+这将使hello函数立即执行，并将返回值作为调用句柄传递给setTimeout函数，其结果并不是程序需要的。而使用字符串形式可以达到想要的结果：<br>
+<code>
+window.setTimeout("hello(userName)",3000);
+</code>
+
+这里的字符串是一段JavaScript代码，其中的userName表示的是变量。但这种写法不够直观，而且有些场合必须使用函数名，下面用一个小技巧来实现带参数函数的调用：<br>
+//根据用户名显示欢迎信息
+<code>
+function hello(_name){    
+alert("hello,"+_name);
+}
+//创建一个函数，用于返回一个无参数函数<br>
+function _hello(_name){    
+return function(){       
+hello(_name);    } }
+window.setTimeout(_hello(userName),3000);<br>
+</code>
+
+
+js setInterval详解<br>
+【自己总结】：<br>
+
+语法  setInterval(code,interval)<br>
+
+①可以有第三个参数，第三个参数作为第一个参数（函数）的参数<br>
+
+②第一个参数是函数，有三种形式：<br>
+
+　　1、传函数名，不用加引号，也不加括号，如 setInterval( func, 1000)，可以把这种调用setInterval的第一个参数看作参数为 函数名或函数的引用。<br>
+
+　　2、传匿名函数，实际和1是一样的<br>
+
+　　3、传函数字符串，加引号，也要加括号。如 setInterval("func()",1000);  其中这种加引号的调用就可以理解为 可执行代码， 这种方法，会在全局作用域下查找函数，有时候有问题。所以推荐前两种<br>
+    在全局作用域下  setInterval("fun()",1000); 可以正常执行，但放到window.onload函数中却不能执行。为什么呢？<br>
+
+    setInterval("fun()",1000); 这种调用报未定义，在全局我们已经说过了 。我们可以把带引号的参数理解为 可执行代码 。<br>
+而setInterval现在把以引号包括的可执行代码进行处理。就像eval一样给予执行。其在执行中 fun() 执行环境发生了变化，不是在window.onload方法下，而是在全局环境中也就是window.大家应该知道JavaScript存在作用域链，<br><br>
+由内向外依次查找。内部可以访问其上层的函数和变量，而外部却不能访问内部的函数和变量。JavaScript有一个预编译处理，首先对函数和变量进行预编译。也就是说其函数和变量作用域是在其声明的时候确定的，而不是在执行的时候确定。<br>
+当setInterval把"fun()"执行环境换为全局的后，对fun的调用是无效的。因为全局不能访问局部的函数和变量。window.onload相对于window来说就是局部的。<br>
+
+</body>
+</html>
